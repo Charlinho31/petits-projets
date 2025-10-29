@@ -1,0 +1,12 @@
+from PySide6 import QtWidgets, QtCore
+
+app = QtWidgets.QApplication([])
+
+lw = QtWidgets.QListWidget()
+lw.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)  # Test
+item = QtWidgets.QListWidgetItem("Test film")
+item.setData(QtCore.Qt.UserRole, {"title": "Test", "year": 2025})
+lw.addItem(item)
+lw.show()
+
+app.exec()

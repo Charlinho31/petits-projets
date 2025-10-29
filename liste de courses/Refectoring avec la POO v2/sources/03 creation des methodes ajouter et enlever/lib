@@ -1,0 +1,38 @@
+import logging # logging is used for debugging and error messages
+
+LOGGER = logging.getLogger() # faire un logger pour le module
+
+class Liste(list):
+    def __init__(self, nom):
+        self.nom = nom
+
+    def ajouter (self, element):
+        """Ajoute un élément à la liste."""
+        if not isinstance(element, str): # vérifie si l'élément est une chaîne de caractères
+            raise ValueError("L'élément doit être une chaîne de caractères.")
+        
+        if element in self: # vérifie si l'élément n'est pas déjà dans la liste
+            LOGGER.error(f"L'élément '{element}' est déjà dans la liste '{self.nom}'.")
+            return False
+        
+        self.append(element) # ajoute l'élément à la liste
+        LOGGER.info(f"L'élément '{element}' a été ajouté à la liste '{self.nom}'.")
+        return True
+    
+    def supprimer(self, element):
+        """Supprime un élément de la liste."""
+        if element in self:
+            self.remove(element)  # supprime l'élément de la liste
+            LOGGER.info(f"L'élément '{element}' a été supprimé de la liste '{self.nom}'.")
+            return True
+        return False
+
+if __name__ == "__main__":
+    # Exemple d'utilisation de la classe Liste
+    liste = Liste("Courses")
+    liste.ajouter("Pommes") # Ajoute un élément
+    liste.ajouter("Poires") # Ajoute un autre élément
+    liste.supprimer("Pommes") # Supprime un élément
+    liste.ajouter("Poires")  # Tentative d'ajouter un élément déjà présent
+    liste.supprimer("Kiwis")  # Tentative de suppression d'un élément non présent
+    print(liste)  # Affiche le contenu de la liste
